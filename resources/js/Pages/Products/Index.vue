@@ -10,7 +10,7 @@ const props = defineProps({
 })
 
 const products = props.products.data
-
+console.log(products)
 </script>
 
 <template>
@@ -51,7 +51,9 @@ const products = props.products.data
                                 {{ product.category.parent_category.parent_category.name }}
                             </span>
 
-                            <span v-else-if="product.category.parent_category && !product.category.parent_category.parent_category">{{ product.category.parent_category.name }}</span>
+                            <span v-else-if="product.category.parent_category && !product.category.parent_category.parent_category">
+                                {{ product.category.parent_category.name }}
+                            </span>
 
                             <span v-else-if="product.category  && !product.category.parent_category">{{ product.category.name }}</span>
 
@@ -59,15 +61,23 @@ const products = props.products.data
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                             <span class="inline-block w-1/3 md:hidden font-bold">Уровень 2</span>
 
-                            <span v-if="product.category.parent_category && !product.category.parent_category.parent_category">
+                            <span v-if="product.category.parent_category && product.category.parent_category.parent_category">
                                 {{ product.category.parent_category.name }}
                             </span>
 
-                            <span v-else-if="product.category  && !product.category.parent_category">{{ product.category.name }}</span>
+                            <span v-else-if="product.category.parent_category && !product.category.parent_category.parent_category">
+                                {{ product.category.name }}
+                            </span>
+
+                            <span v-else-if="product.category  && !product.category.parent_category">
+                                {{ product.category.name }}
+                            </span>
                         </td>
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                             <span class="inline-block w-1/3 md:hidden font-bold">Уровень 3</span>
-                            <span v-if="!product.category.parent_category">{{ product.category.name }}</span>
+                            <span v-if="product.category && product.category.parent_category && product.category.parent_category.parent_category">
+                                {{ product.category.name }}
+                            </span>
                             <span v-else>{{ '' }}</span>
                         </td>
                         <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
